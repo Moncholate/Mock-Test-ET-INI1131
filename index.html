@@ -1,0 +1,2391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INI1131 COMEX - Mock Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .header .course-info {
+            font-size: 0.95em;
+            margin-top: 15px;
+        }
+
+        .info-box {
+            background-color: #e3f2fd;
+            border-left: 5px solid #2196F3;
+            padding: 20px 30px;
+            margin: 0;
+        }
+
+        .info-box h3 {
+            color: #1565c0;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .info-box ul {
+            list-style-position: inside;
+            color: #424242;
+            padding-left: 10px;
+        }
+
+        .info-box li {
+            margin-bottom: 8px;
+        }
+
+        .student-info {
+            background: #f8f9fa;
+            padding: 25px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .student-info h3 {
+            color: #495057;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #495057;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .subsection-title {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-left: 4px solid #667eea;
+            margin: 20px 0 15px 0;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .instructions {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .instructions p {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .instructions ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .instructions li {
+            margin-bottom: 5px;
+        }
+
+        .audio-player {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .audio-player p {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        audio {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .play-counter {
+            text-align: center;
+            font-weight: bold;
+            color: #666;
+            margin-top: 10px;
+            padding: 8px;
+            background: #e3f2fd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .play-counter.warning {
+            color: #d32f2f;
+            background: #ffebee;
+        }
+
+        .audio-instructions {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .play-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .play-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .play-button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .play-count {
+            color: #495057;
+            font-weight: 600;
+        }
+
+        .question-box {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .fill-blank-text {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            line-height: 2;
+            font-size: 1.05em;
+        }
+
+        .blank-input {
+            display: inline-block;
+            min-width: 150px;
+            padding: 5px 10px;
+            border: none;
+            border-bottom: 2px solid #667eea;
+            background: white;
+            font-size: 1em;
+            margin: 0 5px;
+        }
+
+        .blank-input:focus {
+            outline: none;
+            border-bottom: 2px solid #764ba2;
+        }
+
+        .tf-question {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .tf-options {
+            display: flex;
+            gap: 15px;
+        }
+
+        .tf-options label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px 15px;
+            border-radius: 20px;
+            background: white;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s;
+        }
+
+        .tf-options label:hover {
+            border-color: #667eea;
+        }
+
+        .tf-options input[type="radio"]:checked + span {
+            font-weight: 600;
+        }
+
+        .reading-text {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 25px;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+
+        .reading-text strong {
+            color: #495057;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .reading-text p {
+            margin-bottom: 15px;
+        }
+
+        .reading-text ul {
+            margin-left: 25px;
+            margin-top: 10px;
+        }
+
+        .reading-text li {
+            margin-bottom: 8px;
+        }
+
+        .open-question {
+            margin-bottom: 25px;
+        }
+
+        .open-question label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .open-question input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .open-question input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .mc-question {
+            margin-bottom: 25px;
+        }
+
+        .mc-question p {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #495057;
+        }
+
+        .mc-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mc-options label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .mc-options label:hover {
+            background: #e7f3ff;
+            border-color: #667eea;
+        }
+
+        .mc-options input[type="radio"]:checked + span {
+            font-weight: 600;
+        }
+
+        .writing-section textarea {
+            width: 100%;
+            min-height: 300px;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            resize: vertical;
+        }
+
+        .writing-section textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .word-counter {
+            text-align: right;
+            margin-top: 10px;
+            font-weight: 600;
+            color: #6c757d;
+        }
+
+        .word-counter.enough {
+            color: #28a745;
+        }
+
+        .word-counter.warning {
+            color: #ffc107;
+        }
+
+        .word-counter.insufficient {
+            color: #dc3545;
+        }
+
+        .writing-tips {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .writing-tips h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .writing-tips ul {
+            margin-left: 20px;
+        }
+
+        .writing-tips li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .results-container {
+            display: none;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .results-container.show {
+            display: block;
+        }
+
+        .score-summary {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .score-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .score-row:last-child {
+            border-bottom: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        .score-label {
+            font-weight: 600;
+        }
+
+        .score-value {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .score-row:last-child .score-value {
+            color: white;
+        }
+
+        .feedback-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .feedback-item {
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            background: #f8f9fa;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .feedback-item.correct {
+            border-left-color: #28a745;
+            background: #d4edda;
+        }
+
+        .feedback-item.incorrect {
+            border-left-color: #dc3545;
+            background: #f8d7da;
+        }
+
+        .feedback-item strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #495057;
+        }
+
+        .correct-answer {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .your-answer {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .auto-save {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(40, 167, 69, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .auto-save.show {
+            opacity: 1;
+        }
+
+        .manual-scores {
+            background-color: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 5px;
+        }
+
+        .manual-scores h3 {
+            color: #e65100;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .manual-scores p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .manual-score-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .manual-score-item {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            border: 2px solid #e9ecef;
+        }
+
+        .manual-score-item label {
+            display: block;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 8px;
+        }
+
+        .manual-score-item input {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        .manual-score-item input:focus {
+            outline: none;
+            border-color: #ff9800;
+        }
+
+        .manual-score-item small {
+            display: block;
+            color: #666;
+            margin-top: 5px;
+            font-size: 0.85em;
+        }
+
+        .recovery-banner {
+            background: #4caf50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .recovery-banner.show {
+            display: flex;
+        }
+
+        .recovery-banner button {
+            background: white;
+            color: #4caf50;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .recovery-banner button:hover {
+            background: #f1f1f1;
+        }
+
+        .info-banner {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            border-left: 4px solid;
+        }
+
+        .info-banner.success {
+            background: #e8f5e9;
+            border-left-color: #4caf50;
+            color: #2e7d32;
+        }
+
+        .info-banner.warning {
+            background: #fff3e0;
+            border-left-color: #ff9800;
+            color: #e65100;
+        }
+
+        .info-banner strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .rubric-section {
+            background: #f5f5f5;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 3px solid #4caf50;
+        }
+
+        .rubric-title {
+            color: #4caf50;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .rubric-criterion {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #4caf50;
+        }
+
+        .rubric-criterion h4 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .criterion-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .criterion-options label {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .criterion-options label:hover {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+
+        .criterion-options input[type="radio"] {
+            margin-right: 12px;
+            margin-top: 2px;
+            cursor: pointer;
+            min-width: 18px;
+            flex-shrink: 0;
+        }
+
+        .criterion-description {
+            flex: 1;
+        }
+
+        .criterion-description strong {
+            display: block;
+            color: #2e7d32;
+            margin-bottom: 5px;
+            font-size: 1em;
+        }
+
+        .criterion-description p {
+            margin: 0;
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.4;
+        }
+
+        .email-button {
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(33,150,243,0.3);
+            transition: all 0.3s;
+            display: block;
+            width: 100%;
+        }
+
+        .email-button:hover {
+            background: linear-gradient(135deg, #1976d2, #1565c0);
+            box-shadow: 0 6px 20px rgba(33,150,243,0.4);
+            transform: translateY(-2px);
+        }
+
+        .feedback-item {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #ddd;
+        }
+
+        .feedback-item.correct {
+            background: #e8f5e9;
+            border-left-color: #4caf50;
+        }
+
+        .feedback-item.incorrect {
+            background: #ffebee;
+            border-left-color: #f44336;
+        }
+
+        .feedback-item.partial {
+            background: #fff3e0;
+            border-left-color: #ff9800;
+        }
+
+        .feedback-question {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 1.05em;
+        }
+
+        .feedback-answer {
+            margin: 5px 0;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .correct-answer {
+            color: #2e7d32;
+            font-weight: 600;
+        }
+
+        .explanation {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 5px;
+            font-style: italic;
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .button-group,
+            .audio-player,
+            .auto-save {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .btn {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .button-group .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- RECOVERY BANNER (OUTSIDE CONTAINER) -->
+    <div class="recovery-banner" id="recoveryBanner">
+        <span><strong>✅ Respuestas guardadas encontradas</strong> - Última actualización: <span id="lastSaveTime">--</span></span>
+        <button onclick="clearSavedData()">Empezar de Nuevo</button>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>MOCK TEST - EXAMEN ESCRITO</h1>
+            <div class="subtitle">INI1131 - Inglés Básico COMEX</div>
+            <div class="course-info">
+                <strong>Tipo:</strong> Written Final Exam Practice | 
+                <strong>Tiempo:</strong> 60 minutos | 
+                <strong>Puntaje Total:</strong> 36 puntos
+            </div>
+        </div>
+
+        <!-- INFO BOX -->
+        <div class="info-box">
+            <h3>📋 INSTRUCCIONES GENERALES</h3>
+            <ul>
+                <li>Este es un <strong>examen de práctica</strong> (mock test) para prepararte para el examen real.</li>
+                <li>Tienes <strong>60 minutos</strong> para completar todas las secciones.</li>
+                <li>Los audios se pueden reproducir un <strong>máximo de 2 veces</strong> cada uno.</li>
+                <li>Lee las instrucciones de cada sección cuidadosamente.</li>
+                <li>Tus respuestas se guardan automáticamente.</li>
+                <li>Al finalizar, haz clic en "Calcular Puntaje" para ver tus resultados.</li>
+                <li>La sección de Writing debe ser enviada por email al profesor para evaluación.</li>
+            </ul>
+        </div>
+
+        <div class="student-info">
+            <h3>📋 Información del Estudiante</h3>
+            <div class="form-group">
+                <label for="studentName">Nombre Completo:</label>
+                <input type="text" id="studentName" placeholder="Ej: María González Silva">
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- LISTENING SECTION -->
+            <div class="section" id="listeningSection">
+                <div class="section-title">🎧 I. LISTENING (12 points)</div>
+
+                <!-- LISTENING PART A -->
+                <div class="subsection-title">Part A: Fill in the blanks (6 points)</div>
+                
+                <div class="instructions">
+                    <p><strong>Instrucciones:</strong> Escucha la primera parte de un anuncio de trabajo. Completa los espacios en blanco con la información correcta del audio.</p>
+                    <p><strong>⚠️ El audio se puede reproducir un máximo de 2 veces.</strong></p>
+                </div>
+
+                <div class="info-banner success">
+                    <strong>📝 Criterio de corrección para Listening:</strong>
+                    En las secciones de Listening, aceptamos errores de ortografía y gramática siempre que demuestres que comprendiste el audio. Por ejemplo: "wensday" es aceptado para "Wednesday", "colaborates" para "collaborates", etc.
+                </div>
+
+                <div class="audio-player">
+                    <p>🔊 Audio - Part A</p>
+                    <audio id="audioA" controls preload="metadata">
+                        <source src="https://github.com/Moncholate/Mock-Test-ET-INU2101/raw/refs/heads/main/Listening%20A.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="play-counter" id="counterA">Plays: 0 / 2</div>
+                </div>
+
+                <div class="question-box">
+                    <div class="fill-blank-text">
+                        <strong>JOB ADVERTISEMENT</strong>
+                        <p>
+                            TechBridge is a logistics and supply chain company located in Seattle, Washington. 
+                            We are looking for an Operations <input type="text" class="blank-input" id="listening_a_1" placeholder="(1)"> 
+                            to join our team in the operations department.
+                        </p>
+                        <p>
+                            This is a full-time position, with working hours from Monday to 
+                            <input type="text" class="blank-input" id="listening_a_2" placeholder="(2)">, 
+                            from 8:00 AM to 6:00 PM, and on Thursday, from 
+                            <input type="text" class="blank-input" id="listening_a_3" placeholder="(3)"> 
+                            AM to 3:00 PM.
+                        </p>
+                        <p>
+                            At TechBridge, the Operations Coordinator 
+                            <input type="text" class="blank-input" id="listening_a_4" placeholder="(4)"> 
+                            directly with the department manager and team leaders.
+                        </p>
+                        <p>
+                            This person also works closely with 
+                            <input type="text" class="blank-input" id="listening_a_5" placeholder="(5)"> 
+                            to plan and organize shipment schedules and delivery routes.
+                        </p>
+                        <p>
+                            Additionally, the person in this position has the opportunity to participate in 
+                            <input type="text" class="blank-input" id="listening_a_6" placeholder="(6)"> 
+                            sessions to learn new logistics software and improve their skills.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- LISTENING PART B -->
+                <div class="subsection-title">Part B: True or False (6 points)</div>
+                
+                <div class="instructions">
+                    <p><strong>Instrucciones:</strong> Escucha la segunda parte del anuncio de trabajo y decide si las siguientes oraciones son verdaderas (T) o falsas (F).</p>
+                    <p><strong>⚠️ El audio se puede reproducir un máximo de 2 veces.</strong></p>
+                </div>
+
+                <div class="audio-player">
+                    <p>🔊 Audio - Part B</p>
+                    <audio id="audioB" controls preload="metadata">
+                        <source src="https://github.com/Moncholate/Mock-Test-ET-INU2101/raw/refs/heads/main/Listening%20B.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="play-counter" id="counterB">Plays: 0 / 2</div>
+                </div>
+
+                <div class="question-box">
+                    <div class="tf-question">
+                        <span><strong>1.</strong> In this job, the operations coordinator monitors inventory levels.</span>
+                        <div class="tf-options">
+                            <label>
+                                <input type="radio" name="listening_b_1" value="T">
+                                <span>T</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="listening_b_1" value="F">
+                                <span>F</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="tf-question">
+                        <span><strong>2.</strong> In this job, the operations coordinator doesn't attend meetings.</span>
+                        <div class="tf-options">
+                            <label>
+                                <input type="radio" name="listening_b_2" value="T">
+                                <span>T</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="listening_b_2" value="F">
+                                <span>F</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="tf-question">
+                        <span><strong>3.</strong> In this job, the operations coordinator helps to prepare shipment documents.</span>
+                        <div class="tf-options">
+                            <label>
+                                <input type="radio" name="listening_b_3" value="T">
+                                <span>T</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="listening_b_3" value="F">
+                                <span>F</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="tf-question">
+                        <span><strong>4.</strong> In this job, the operations coordinator contacts suppliers.</span>
+                        <div class="tf-options">
+                            <label>
+                                <input type="radio" name="listening_b_4" value="T">
+                                <span>T</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="listening_b_4" value="F">
+                                <span>F</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="tf-question">
+                        <span><strong>5.</strong> Maria Lopez is TechBridge's company director.</span>
+                        <div class="tf-options">
+                            <label>
+                                <input type="radio" name="listening_b_5" value="T">
+                                <span>T</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="listening_b_5" value="F">
+                                <span>F</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="tf-question">
+                        <span><strong>6.</strong> They look for someone with advanced computer skills.</span>
+                        <div class="tf-options">
+                            <label>
+                                <input type="radio" name="listening_b_6" value="T">
+                                <span>T</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="listening_b_6" value="F">
+                                <span>F</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- READING SECTION -->
+            <div class="section" id="readingSection">
+                <div class="section-title">📖 II. READING (12 points)</div>
+
+                <!-- READING PART A -->
+                <div class="subsection-title">Part A: Read the email and answer the questions (6 points)</div>
+                
+                <div class="instructions">
+                    <p><strong>Instrucciones:</strong> Eres un candidato para el puesto del anuncio anterior. La empresa te envió un email para tu primera entrevista. Lee el email y responde las preguntas.</p>
+                </div>
+
+                <div class="info-banner warning">
+                    <strong>⚠️ Importante para Reading Part A:</strong>
+                    Las respuestas deben ser oraciones completas en inglés, no palabras sueltas. Por ejemplo: "Maria Lopez is the HR Coordinator" ✅ (correcto) vs "Maria Lopez" ❌ (incompleto).
+                </div>
+
+                <div class="reading-text">
+                    <strong>Subject: Interview Invitation – Operations Coordinator</strong>
+                    <p>Hi!</p>
+                    <p>Thank you for your application to TechBridge. We really liked your resume!</p>
+                    <p>My name is Maria Lopez, and I work in the Human Resources team. I am writing because we want to meet you. Jennifer Park is our Chief Operations Officer, and David Chen is our Hiring Manager. They read your resume and they think you are very good for the Operations Coordinator position.</p>
+                    <p>Right now, TechBridge has an important project. We are opening new distribution centers in Chile and Peru. This is very exciting for our company!</p>
+                    <p>The Operations Coordinator has important responsibilities. This person coordinates shipments and manages inventory. The coordinator also communicates with suppliers and supports the operations team every day.</p>
+                    <p>Can you come for an interview next Friday at 2:30 PM? The interview is at our Seattle office. The address is:<br>
+                    1550 Pacific Avenue<br>
+                    Seattle, WA 98101</p>
+                    <p>In the interview, we talk about your experience and your work history. We also discuss the salary and benefits.</p>
+                    <p>Please send me an email to confirm the interview.</p>
+                    <p>We want to meet you soon!</p>
+                    <p>Best regards,<br>
+                    Maria Lopez<br>
+                    Human Resources Coordinator<br>
+                    TECHBRIDGE LOGISTICS</p>
+                </div>
+
+                <div class="question-box">
+                    <div class="open-question">
+                        <label>1. Who is contacting the candidate and what is her job? (1 point)</label>
+                        <input type="text" id="reading_a_1" placeholder="Escribe tu respuesta aquí">
+                    </div>
+
+                    <div class="open-question">
+                        <label>2. What do Jennifer Park and David Chen think about the candidate? (1 point)</label>
+                        <input type="text" id="reading_a_2" placeholder="Escribe tu respuesta aquí">
+                    </div>
+
+                    <div class="open-question">
+                        <label>3. What is TechBridge doing in Chile and Peru? (1 point)</label>
+                        <input type="text" id="reading_a_3" placeholder="Escribe tu respuesta aquí">
+                    </div>
+
+                    <div class="open-question">
+                        <label>4. What are two responsibilities of the Operations Coordinator? (2 points)</label>
+                        <input type="text" id="reading_a_4" placeholder="Escribe tu respuesta aquí (nombra dos)">
+                    </div>
+
+                    <div class="open-question">
+                        <label>5. When and where is the interview? (1 point)</label>
+                        <input type="text" id="reading_a_5" placeholder="Escribe tu respuesta aquí">
+                    </div>
+                </div>
+
+                <!-- READING PART B -->
+                <div class="subsection-title">Part B: Read the article and choose the correct answer (6 points)</div>
+                
+                <div class="instructions">
+                    <p><strong>Instrucciones:</strong> Te estás preparando para tu primer día en el nuevo trabajo. Lee el siguiente artículo y elige la alternativa correcta para cada pregunta.</p>
+                </div>
+
+                <div class="reading-text">
+                    <strong>Your First Day at Work</strong>
+                    <p>Your first day at a new job is important. Here are some tips to help you.</p>
+                    
+                    <p><strong>First,</strong> plan your transportation. Know how to get to your workplace. Check the bus or train schedule. If you drive, find the parking lot. Leave home early to arrive on time.</p>
+                    
+                    <p><strong>Second,</strong> dress appropriately. Ask about the dress code before your first day. Some companies are formal. Other companies are casual. When you don't know, dress more formally.</p>
+                    
+                    <p><strong>Third,</strong> bring important documents. You need your ID card and work contract. Bring a notebook and pen too. Write down important information.</p>
+                    
+                    <p><strong>Fourth,</strong> be friendly. Smile when you meet people. Introduce yourself to your new colleagues. Ask questions when you don't understand something.</p>
+                    
+                    <p><strong>Finally,</strong> take notes. Your manager gives you a lot of information. You cannot remember everything. Write it down in your notebook.</p>
+                    
+                    <p>Your first day is an opportunity. Be on time, be polite, and be ready to learn. Good luck!</p>
+                </div>
+
+                <div class="question-box">
+                    <div class="mc-question">
+                        <p>1. What should you do before your first day?</p>
+                        <div class="mc-options">
+                            <label><input type="radio" name="reading_b_1" value="A"><span>a) Buy new clothes</span></label>
+                            <label><input type="radio" name="reading_b_1" value="B"><span>b) Plan your route to work</span></label>
+                            <label><input type="radio" name="reading_b_1" value="C"><span>c) Call your manager</span></label>
+                            <label><input type="radio" name="reading_b_1" value="D"><span>d) Buy a new car</span></label>
+                        </div>
+                    </div>
+
+                    <div class="mc-question">
+                        <p>2. Why do you need to know the dress code?</p>
+                        <div class="mc-options">
+                            <label><input type="radio" name="reading_b_2" value="A"><span>a) To buy expensive clothes</span></label>
+                            <label><input type="radio" name="reading_b_2" value="B"><span>b) To look like your manager</span></label>
+                            <label><input type="radio" name="reading_b_2" value="C"><span>c) To dress appropriately</span></label>
+                            <label><input type="radio" name="reading_b_2" value="D"><span>d) To wear casual clothes always</span></label>
+                        </div>
+                    </div>
+
+                    <div class="mc-question">
+                        <p>3. What documents do you need?</p>
+                        <div class="mc-options">
+                            <label><input type="radio" name="reading_b_3" value="A"><span>a) Passport and visa</span></label>
+                            <label><input type="radio" name="reading_b_3" value="B"><span>b) School certificates</span></label>
+                            <label><input type="radio" name="reading_b_3" value="C"><span>c) ID card and work contract</span></label>
+                            <label><input type="radio" name="reading_b_3" value="D"><span>d) Driver's license only</span></label>
+                        </div>
+                    </div>
+
+                    <div class="mc-question">
+                        <p>4. How do you act with new colleagues?</p>
+                        <div class="mc-options">
+                            <label><input type="radio" name="reading_b_4" value="A"><span>a) Stay quiet</span></label>
+                            <label><input type="radio" name="reading_b_4" value="B"><span>b) Be friendly and introduce yourself</span></label>
+                            <label><input type="radio" name="reading_b_4" value="C"><span>c) Wait for them to talk</span></label>
+                            <label><input type="radio" name="reading_b_4" value="D"><span>d) Only talk to the manager</span></label>
+                        </div>
+                    </div>
+
+                    <div class="mc-question">
+                        <p>5. Why do you take notes?</p>
+                        <div class="mc-options">
+                            <label><input type="radio" name="reading_b_5" value="A"><span>a) To look busy</span></label>
+                            <label><input type="radio" name="reading_b_5" value="B"><span>b) To practice writing</span></label>
+                            <label><input type="radio" name="reading_b_5" value="C"><span>c) Because you cannot remember everything</span></label>
+                            <label><input type="radio" name="reading_b_5" value="D"><span>d) To tell your friends</span></label>
+                        </div>
+                    </div>
+
+                    <div class="mc-question">
+                        <p>6. What is the main message?</p>
+                        <div class="mc-options">
+                            <label><input type="radio" name="reading_b_6" value="A"><span>a) First days are easy</span></label>
+                            <label><input type="radio" name="reading_b_6" value="B"><span>b) You need expensive clothes</span></label>
+                            <label><input type="radio" name="reading_b_6" value="C"><span>c) Preparation helps you succeed</span></label>
+                            <label><input type="radio" name="reading_b_6" value="D"><span>d) Only managers are important</span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WRITING SECTION -->
+            <div class="section" id="writingSection">
+                <div class="section-title">✍️ III. WRITING (12 points)</div>
+
+                <div class="instructions">
+                    <p><strong>Instrucciones:</strong> Terminaste la primera parte del proceso de reclutamiento para el puesto de Operations Coordinator en TechBridge. Ahora necesitas escribir una carta de presentación para presentarte a la empresa. Usa un mínimo de 40 palabras.</p>
+                    <p><strong>Debes incluir la siguiente información sobre ti:</strong></p>
+                    <ul>
+                        <li>📌 Personal information (información personal)</li>
+                        <li>💼 Abilities / Interests (habilidades / intereses)</li>
+                        <li>⏰ Routine (rutina)</li>
+                        <li>🔄 What you are doing these days (qué estás haciendo estos días)</li>
+                    </ul>
+                    <p><strong>Recuerda:</strong></p>
+                    <ul>
+                        <li>Usar Present Simple para tu rutina</li>
+                        <li>Usar Present Continuous para lo que estás haciendo estos días</li>
+                        <li>Usar love/like/enjoy/hate + verb-ing para expresar gustos</li>
+                        <li>Escribir oraciones completas</li>
+                        <li>Revisar ortografía y gramática</li>
+                    </ul>
+                </div>
+
+                <div class="writing-section">
+                    <textarea id="writingText" placeholder="Write your presentation letter here...
+
+Example:
+Dear TechBridge Team,
+
+My name is..."></textarea>
+                    <div class="word-counter" id="wordCounter">
+                        <span id="wordCount">0</span> words (minimum: 40)
+                    </div>
+                </div>
+
+                <button class="email-button" id="sendWritingButton">
+                    📧 Send Writing by Email
+                </button>
+
+                <!-- INTERACTIVE RUBRIC -->
+                <div class="rubric-section">
+                    <h3 class="rubric-title">📊 Writing Rubric - Enter Scores from Professor</h3>
+                    <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                        <em>Después de leer el texto del estudiante, selecciona el nivel apropiado para cada criterio.</em>
+                    </p>
+
+                    <!-- CRITERION 1 -->
+                    <div class="rubric-criterion">
+                        <h4>Criterio 1: Coherencia y Extensión (4 puntos)</h4>
+                        <div class="criterion-options">
+                            <label>
+                                <input type="radio" name="crit1" value="4">
+                                <div class="criterion-description">
+                                    <strong>4 pts - Excelente</strong>
+                                    <p>Texto coherente y bien organizado. Incluye TODA la información requerida (personal info, abilities/interests, routine, what doing these days) con buenos detalles. 50+ palabras.</p>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" name="crit1" value="3">
+                                <div class="criterion-description">
+                                    <strong>3 pts - Bueno</strong>
+                                    <p>Mayormente coherente. Incluye todos los temas pero con menos detalle. 40-49 palabras.</p>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" name="crit1" value="2">
+                                <div class="criterion-description">
+                                    <strong>2 pts - Adecuado</strong>
+                                    <p>Algunos problemas de coherencia O falta un tema requerido. 30-39 palabras.</p>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" name="crit1" value="1">
+                                <div class="criterion-description">
+                                    <strong>1 pt - Insuficiente</strong>
+                                    <p>Falta coherencia O faltan dos o más temas. 20-29 palabras.</p>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" name="crit1" value="0">
+                                <div class="criterion-description">
+                                    <strong>0 pts - No logrado</strong>
+                                    <p>Incoherente o incomprensible. Menos de 20 palabras o no aborda el tema.</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- CRITERION 2 -->
+                    <div class="rubric-criterion">
+                        <h4>Criterio 2: Vocabulario (3 puntos)</h4>
+                        <div class="criterion-options">
+                            <label>
+                                <input type="radio" name="crit2" value="3">
+                                <div class="criterion-description">
+                                    <strong>3 pts - Excelente</strong>
+                                    <p>Usa 8+ palabras de vocabulario diferentes y apropiadas del curso (work, coordinator, organize, manage, communicate, team, logistics, etc.)</p>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" name="crit2" value="2">
+                                <div class="criterion-description">
+                                    <strong>2 pts - Bueno</strong>
+                                    <p>Usa 6-7 palabras de vocabulario diferentes y apropiadas.</p>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" name="crit2" value="1">
+                                <div class="criterion-description">
+                                    <strong>1 pt - Adecuado</strong>
+                                    <p>Usa 4-5 palabras de vocabulario diferentes y apropiadas.</p>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" name="crit2" value="0">
+                                <div class="criterion-description">
+                                    <strong>0 pts - Insuficiente</strong>
+                                    <p>Usa 3 o menos palabras de vocabulario, o el vocabulario es mayormente inapropiado/poco claro.</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- CRITERION 3 -->
+                    <div class="rubric-criterion">
+                        <h4>Criterio 3: Gramática (3 puntos)</h4>
+                        <div class="criterion-options">
+                            <label>
+                                <input type="radio" name="crit3" value="3">
+                                <div class="criterion-description">
+                                    <strong>3 pts - Excelente</strong>
+                                    <p>0-1 errores de gramática. Casi todas las oraciones correctas. Present Simple y Present Continuous usados correctamente. Usa love/like/enjoy/hate + -ing correctamente.</p>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" name="crit3" value="2">
+                                <div class="criterion-description">
+                                    <strong>2 pts - Bueno</strong>
+                                    <p>2-3 errores de gramática. La mayoría de oraciones correctas, algunos errores con tiempos/estructura.</p>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" name="crit3" value="1">
+                                <div class="criterion-description">
+                                    <strong>1 pt - Adecuado</strong>
+                                    <p>4-5 errores de gramática. Varios problemas pero el significado es mayormente claro.</p>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" name="crit3" value="0">
+                                <div class="criterion-description">
+                                    <strong>0 pts - Insuficiente</strong>
+                                    <p>6+ errores de gramática. Muchas oraciones incorrectas, significado a menudo poco claro.</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- CRITERION 4 -->
+                    <div class="rubric-criterion">
+                        <h4>Criterio 4: Ortografía (2 puntos)</h4>
+                        <div class="criterion-options">
+                            <label>
+                                <input type="radio" name="crit4" value="2">
+                                <div class="criterion-description">
+                                    <strong>2 pts - Excelente</strong>
+                                    <p>0-2 errores de ortografía. Casi todas las palabras correctamente escritas.</p>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" name="crit4" value="1">
+                                <div class="criterion-description">
+                                    <strong>1 pt - Bueno</strong>
+                                    <p>3-4 errores de ortografía. Mayoría de palabras correctas.</p>
+                                </div>
+                            </label>
+                            <label>
+                                <input type="radio" name="crit4" value="0">
+                                <div class="criterion-description">
+                                    <strong>0 pts - Insuficiente</strong>
+                                    <p>5+ errores de ortografía. Muchas palabras incorrectas afectan la comprensión.</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 8px;">
+                        <strong style="color: #2e7d32; font-size: 1.1em;">Puntaje Writing Total: <span id="rubricTotal">0</span> / 12 puntos</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MANUAL SCORE ADJUSTMENT -->
+            <div class="manual-scores" id="manualScoresSection">
+                <h3>🔧 Ajuste Manual de Puntajes (Opcional - Solo Profesor)</h3>
+                <p>
+                    Si encuentras errores en la corrección automática o necesitas ajustar los puntajes manualmente, 
+                    puedes ingresar los valores corregidos aquí. <strong>Deja los campos vacíos para usar la calificación automática o rúbrica.</strong>
+                </p>
+                
+                <div class="manual-score-grid">
+                    <div class="manual-score-item">
+                        <label for="manualListening">🎧 Listening (0-12):</label>
+                        <input type="number" id="manualListening" min="0" max="12" step="0.5" placeholder="Auto">
+                        <small>Dejar vacío = usar automático</small>
+                    </div>
+                    
+                    <div class="manual-score-item">
+                        <label for="manualReading">📖 Reading (0-12):</label>
+                        <input type="number" id="manualReading" min="0" max="12" step="0.5" placeholder="Auto">
+                        <small>Dejar vacío = usar automático</small>
+                    </div>
+                    
+                    <div class="manual-score-item">
+                        <label for="manualWriting">✍️ Writing (0-12):</label>
+                        <input type="number" id="manualWriting" min="0" max="12" step="0.1" placeholder="Rúbrica">
+                        <small>Dejar vacío = usar rúbrica interactiva</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BUTTONS -->
+            <div class="button-group">
+                <button class="btn btn-primary" id="calculateButton">📊 Calcular Puntaje</button>
+            </div>
+
+            <!-- RESULTS -->
+            <div class="results-container" id="resultsContainer">
+                <h2 style="text-align: center; color: #495057; margin-bottom: 25px;">📊 RESULTADOS DEL MOCK TEST</h2>
+                
+                <div class="score-summary">
+                    <div class="score-row">
+                        <span class="score-label">🎧 Listening</span>
+                        <span class="score-value" id="listeningScore">0 / 12</span>
+                    </div>
+                    <div class="score-row">
+                        <span class="score-label">📖 Reading</span>
+                        <span class="score-value" id="readingScore">0 / 12</span>
+                    </div>
+                    <div class="score-row">
+                        <span class="score-label">✍️ Writing</span>
+                        <span class="score-value" id="writingScore">Pendiente</span>
+                    </div>
+                    <div class="score-row">
+                        <span class="score-label">📝 PUNTAJE TOTAL</span>
+                        <span class="score-value"><span id="totalScore">0</span> / 36</span>
+                    </div>
+                    <div class="score-row">
+                        <span class="score-label">🎓 NOTA CHILENA (60% = 4.0)</span>
+                        <span class="score-value" id="finalGrade">1.0</span>
+                    </div>
+                </div>
+
+                <div class="feedback-section" id="feedbackSection">
+                    <!-- Feedback will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="auto-save" id="autoSaveIndicator">
+        ✓ Guardado automáticamente
+    </div>
+
+    <script>
+        // ==================== AUDIO PLAYER LOGIC ====================
+        const audioA = document.getElementById('audioA');
+        const audioB = document.getElementById('audioB');
+        const counterA = document.getElementById('counterA');
+        const counterB = document.getElementById('counterB');
+        
+        let playCountA = 0;
+        let playCountB = 0;
+        const maxPlays = 2;
+        let alertShownA = false;
+        let alertShownB = false;
+
+        // Audio A play tracking
+        audioA.addEventListener('play', function() {
+            playCountA++;
+            counterA.textContent = `Plays: ${playCountA} / ${maxPlays}`;
+            
+            if (playCountA >= maxPlays) {
+                counterA.classList.add('warning');
+                
+                // Show alert only once when limit is reached
+                if (playCountA === maxPlays && !alertShownA) {
+                    alertShownA = true;
+                    alert('⚠️ Has alcanzado el límite recomendado de 2 reproducciones para Audio A.\n\nPuedes seguir escuchando, pero en el examen real solo tendrás 2 oportunidades.');
+                }
+            }
+        });
+
+        // Audio B play tracking
+        audioB.addEventListener('play', function() {
+            playCountB++;
+            counterB.textContent = `Plays: ${playCountB} / ${maxPlays}`;
+            
+            if (playCountB >= maxPlays) {
+                counterB.classList.add('warning');
+                
+                // Show alert only once when limit is reached
+                if (playCountB === maxPlays && !alertShownB) {
+                    alertShownB = true;
+                    alert('⚠️ Has alcanzado el límite recomendado de 2 reproducciones para Audio B.\n\nPuedes seguir escuchando, pero en el examen real solo tendrás 2 oportunidades.');
+                }
+            }
+        });
+
+        // ==================== WORD COUNTER ====================
+        document.getElementById('writingText').addEventListener('input', function() {
+            const text = this.value.trim();
+            const words = text.split(/\s+/).filter(word => word.length > 0);
+            const wordCount = words.length;
+            
+            document.getElementById('wordCount').textContent = wordCount;
+            
+            const counterElement = document.getElementById('wordCounter');
+            counterElement.classList.remove('insufficient', 'sufficient');
+            
+            if (wordCount >= 40) {
+                counterElement.classList.add('sufficient');
+            } else {
+                counterElement.classList.add('insufficient');
+            }
+        });
+
+        // ==================== AUTO-SAVE LOGIC ====================
+        let autoSaveTimeout;
+        const STORAGE_KEY = 'ini1131_mock_test';
+
+        function clearSavedData() {
+            if (confirm('¿Estás seguro de que quieres eliminar todas tus respuestas guardadas y empezar de nuevo?\n\nEsta acción no se puede deshacer.')) {
+                localStorage.removeItem(STORAGE_KEY);
+                alert('✅ Datos eliminados. La página se recargará.');
+                location.reload();
+            }
+        }
+
+        function saveToLocalStorage() {
+            const formData = {
+                studentName: document.getElementById('studentName').value,
+                listening_a: {},
+                listening_b: {},
+                reading_a: {},
+                reading_b: {},
+                writing: document.getElementById('writingText').value,
+                manualScores: {
+                    listening: document.getElementById('manualListening').value,
+                    reading: document.getElementById('manualReading').value,
+                    writing: document.getElementById('manualWriting').value
+                },
+                timestamp: new Date().toISOString()
+            };
+
+            // Save Listening A
+            for (let i = 1; i <= 6; i++) {
+                formData.listening_a[i] = document.getElementById(`listening_a_${i}`).value;
+            }
+
+            // Save Listening B
+            for (let i = 1; i <= 6; i++) {
+                const selected = document.querySelector(`input[name="listening_b_${i}"]:checked`);
+                formData.listening_b[i] = selected ? selected.value : '';
+            }
+
+            // Save Reading A
+            for (let i = 1; i <= 5; i++) {
+                formData.reading_a[i] = document.getElementById(`reading_a_${i}`).value;
+            }
+
+            // Save Reading B
+            for (let i = 1; i <= 6; i++) {
+                const selected = document.querySelector(`input[name="reading_b_${i}"]:checked`);
+                formData.reading_b[i] = selected ? selected.value : '';
+            }
+
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+            
+            // Show auto-save indicator with timestamp
+            const indicator = document.getElementById('autoSaveIndicator');
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
+            indicator.textContent = `✓ Guardado: ${timeString}`;
+            indicator.classList.add('show');
+            setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 2000);
+        }
+
+        function loadFromLocalStorage() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (!saved) return;
+
+            const formData = JSON.parse(saved);
+
+            // Show recovery banner with timestamp
+            const recoveryBanner = document.getElementById('recoveryBanner');
+            const lastSaveTime = document.getElementById('lastSaveTime');
+            
+            if (formData.timestamp) {
+                const saveDate = new Date(formData.timestamp);
+                const dateString = saveDate.toLocaleDateString('es-CL');
+                const timeString = saveDate.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' });
+                lastSaveTime.textContent = `${dateString} a las ${timeString}`;
+            } else {
+                lastSaveTime.textContent = 'Fecha desconocida';
+            }
+            
+            recoveryBanner.classList.add('show');
+
+            // Load student info
+            document.getElementById('studentName').value = formData.studentName || '';
+
+            // Load Listening A
+            for (let i = 1; i <= 6; i++) {
+                if (formData.listening_a && formData.listening_a[i]) {
+                    document.getElementById(`listening_a_${i}`).value = formData.listening_a[i];
+                }
+            }
+
+            // Load Listening B
+            for (let i = 1; i <= 6; i++) {
+                if (formData.listening_b && formData.listening_b[i]) {
+                    const radio = document.querySelector(`input[name="listening_b_${i}"][value="${formData.listening_b[i]}"]`);
+                    if (radio) radio.checked = true;
+                }
+            }
+
+            // Load Reading A
+            for (let i = 1; i <= 5; i++) {
+                if (formData.reading_a && formData.reading_a[i]) {
+                    document.getElementById(`reading_a_${i}`).value = formData.reading_a[i];
+                }
+            }
+
+            // Load Reading B
+            for (let i = 1; i <= 6; i++) {
+                if (formData.reading_b && formData.reading_b[i]) {
+                    const radio = document.querySelector(`input[name="reading_b_${i}"][value="${formData.reading_b[i]}"]`);
+                    if (radio) radio.checked = true;
+                }
+            }
+
+            // Load Writing
+            document.getElementById('writingText').value = formData.writing || '';
+            
+            // Load Manual Scores
+            if (formData.manualScores) {
+                document.getElementById('manualListening').value = formData.manualScores.listening || '';
+                document.getElementById('manualReading').value = formData.manualScores.reading || '';
+                document.getElementById('manualWriting').value = formData.manualScores.writing || '';
+            }
+            
+            // Update word count
+            document.getElementById('writingText').dispatchEvent(new Event('input'));
+        }
+
+        // Auto-save on input changes
+        document.addEventListener('input', function() {
+            clearTimeout(autoSaveTimeout);
+            autoSaveTimeout = setTimeout(saveToLocalStorage, 1000);
+        });
+
+        // Load saved data on page load
+        window.addEventListener('load', loadFromLocalStorage);
+
+        // ==================== GRADING LOGIC ====================
+        
+        function normalize(str) {
+            return str.toLowerCase().trim().replace(/[.:,]/g, '');
+        }
+
+        function checkListeningA() {
+            const answers = {
+                1: ['coordinator', 'coordinador', 'coordenator', 'co-ordinator', 'cordinator', 'coordenater'],
+                2: ['wednesday', 'wensday', 'wenesday', 'wednsday', 'wednseday'],
+                3: ['9', '9am', '9 am', '9:00am', '9:00 am', 'nine', 'nine am', '9 o\'clock', '09:00'],
+                4: ['collaborates', 'colaborates', 'colaborats', 'colavorates', 'colaburates', 'works', 'colabora'],
+                5: ['suppliers', 'supliers', 'supplyers', 'suplyers', 'proveedores'],
+                6: ['training', 'trainning', 'traning', 'entrenamientos', 'capacitación', 'capacitacion']
+            };
+
+            let score = 0;
+            let feedback = [];
+
+            for (let i = 1; i <= 6; i++) {
+                const userAnswer = normalize(document.getElementById(`listening_a_${i}`).value);
+                const correctAnswers = answers[i];
+                const isCorrect = correctAnswers.some(ans => normalize(ans) === userAnswer);
+
+                if (isCorrect) {
+                    score++;
+                    feedback.push({
+                        question: i,
+                        correct: true,
+                        userAnswer: document.getElementById(`listening_a_${i}`).value,
+                        correctAnswer: correctAnswers[0]
+                    });
+                } else {
+                    feedback.push({
+                        question: i,
+                        correct: false,
+                        userAnswer: document.getElementById(`listening_a_${i}`).value || '(sin respuesta)',
+                        correctAnswer: correctAnswers[0]
+                    });
+                }
+            }
+
+            return { score, feedback };
+        }
+
+        function checkListeningB() {
+            const answers = {
+                1: 'T',
+                2: 'F',
+                3: 'T',
+                4: 'T',
+                5: 'F',
+                6: 'F'
+            };
+
+            let score = 0;
+            let feedback = [];
+
+            for (let i = 1; i <= 6; i++) {
+                const selected = document.querySelector(`input[name="listening_b_${i}"]:checked`);
+                const userAnswer = selected ? selected.value : '';
+                const correctAnswer = answers[i];
+
+                if (userAnswer === correctAnswer) {
+                    score++;
+                    feedback.push({
+                        question: i,
+                        correct: true,
+                        userAnswer: userAnswer,
+                        correctAnswer: correctAnswer
+                    });
+                } else {
+                    feedback.push({
+                        question: i,
+                        correct: false,
+                        userAnswer: userAnswer || '(sin respuesta)',
+                        correctAnswer: correctAnswer
+                    });
+                }
+            }
+
+            return { score, feedback };
+        }
+
+        function checkReadingB() {
+            const answers = {
+                1: 'B',
+                2: 'C',
+                3: 'C',
+                4: 'B',
+                5: 'C',
+                6: 'C'
+            };
+
+            let score = 0;
+            let feedback = [];
+
+            for (let i = 1; i <= 6; i++) {
+                const selected = document.querySelector(`input[name="reading_b_${i}"]:checked`);
+                const userAnswer = selected ? selected.value : '';
+                const correctAnswer = answers[i];
+
+                if (userAnswer === correctAnswer) {
+                    score++;
+                    feedback.push({
+                        question: i,
+                        correct: true,
+                        userAnswer: userAnswer,
+                        correctAnswer: correctAnswer
+                    });
+                } else {
+                    feedback.push({
+                        question: i,
+                        correct: false,
+                        userAnswer: userAnswer || '(sin respuesta)',
+                        correctAnswer: correctAnswer
+                    });
+                }
+            }
+
+            return { score, feedback };
+        }
+
+        function checkReadingA() {
+            // Define expected keywords for each question
+            const questions = {
+                1: {
+                    points: 1,
+                    keywords: ['maria', 'lopez', 'hr', 'coordinator', 'human resources'],
+                    expectedStructure: 'Maria Lopez is the HR Coordinator / Human Resources Coordinator'
+                },
+                2: {
+                    points: 1,
+                    keywords: ['good', 'very good', 'suitable', 'right', 'qualified'],
+                    expectedStructure: 'They think the candidate is very good for the position'
+                },
+                3: {
+                    points: 1,
+                    keywords: ['distribution', 'centers', 'chile', 'peru', 'opening', 'open'],
+                    expectedStructure: 'They are opening new distribution centers in Chile and Peru'
+                },
+                4: {
+                    points: 2,
+                    keywords: ['coordinate', 'shipments', 'manage', 'inventory', 'communicate', 'suppliers', 'support', 'operations'],
+                    expectedStructure: 'Two responsibilities from: coordinate shipments, manage inventory, communicate with suppliers, support operations team'
+                },
+                5: {
+                    points: 1,
+                    keywords: ['friday', '2:30', 'seattle', 'office', '1550', 'pacific'],
+                    expectedStructure: 'Friday at 2:30 PM at Seattle office / 1550 Pacific Avenue'
+                }
+            };
+
+            let totalScore = 0;
+            let feedback = [];
+
+            for (let i = 1; i <= 5; i++) {
+                const userAnswer = normalize(document.getElementById(`reading_a_${i}`).value);
+                const question = questions[i];
+                const words = userAnswer.split(/\s+/).filter(w => w.length > 0);
+                const wordCount = words.length;
+
+                // Check if answer contains expected keywords
+                const hasKeywords = question.keywords.some(kw => userAnswer.includes(kw));
+
+                let pointsEarned = 0;
+                let partialCredit = false;
+
+                if (wordCount >= 3 && hasKeywords) {
+                    // Complete sentence with keywords
+                    pointsEarned = question.points;
+                } else if (hasKeywords && wordCount >= 1) {
+                    // Keywords present but not complete sentence
+                    pointsEarned = question.points * 0.5;
+                    partialCredit = true;
+                } else {
+                    // No keywords or empty
+                    pointsEarned = 0;
+                }
+
+                totalScore += pointsEarned;
+
+                feedback.push({
+                    question: i,
+                    userAnswer: document.getElementById(`reading_a_${i}`).value || '(sin respuesta)',
+                    pointsEarned: pointsEarned,
+                    maxPoints: question.points,
+                    partialCredit: partialCredit,
+                    expectedStructure: question.expectedStructure
+                });
+            }
+
+            return { score: totalScore, feedback, maxScore: 6 };
+        }
+
+        function checkReadingB() {
+            const answers = {
+                1: 'B',
+                2: 'C',
+                3: 'C',
+                4: 'B',
+                5: 'C',
+                6: 'C'
+            };
+
+            let score = 0;
+            let feedback = [];
+
+            for (let i = 1; i <= 6; i++) {
+                const selected = document.querySelector(`input[name="reading_b_${i}"]:checked`);
+                const userAnswer = selected ? selected.value : '';
+                const correctAnswer = answers[i];
+
+                if (userAnswer === correctAnswer) {
+                    score++;
+                    feedback.push({
+                        question: i,
+                        correct: true,
+                        userAnswer: userAnswer,
+                        correctAnswer: correctAnswer
+                    });
+                } else {
+                    feedback.push({
+                        question: i,
+                        correct: false,
+                        userAnswer: userAnswer || '(sin respuesta)',
+                        correctAnswer: correctAnswer
+                    });
+                }
+            }
+
+            return { score, feedback };
+        }
+
+        function calculateGrade(score, maxScore) {
+            const percentage = (score / maxScore) * 100;
+            
+            if (percentage < 60) {
+                return 1.0 + (percentage / 60) * 3.0;
+            } else {
+                return 4.0 + ((percentage - 60) / 40) * 3.0;
+            }
+        }
+
+        document.getElementById('calculateButton').addEventListener('click', function() {
+            // Calculate rubric score
+            const rubricScore = calculateRubricScore();
+
+            // Check for manual overrides
+            const manualListening = document.getElementById('manualListening').value;
+            const manualReading = document.getElementById('manualReading').value;
+            const manualWriting = document.getElementById('manualWriting').value;
+
+            // VALIDATION: Check if Writing has been evaluated
+            if (rubricScore === 0 && manualWriting === '') {
+                alert('⚠️ Por favor completa la rúbrica de Writing (4 criterios) o ingresa un puntaje manual antes de calcular.\n\nLa rúbrica está ubicada justo arriba de esta sección.');
+                
+                // Scroll to rubric section
+                document.querySelector('.rubric-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
+            // Check Listening (automatic)
+            const listeningA = checkListeningA();
+            const listeningB = checkListeningB();
+            const autoListeningTotal = listeningA.score + listeningB.score;
+
+            // Check Reading (automatic - both parts)
+            const readingA = checkReadingA();
+            const readingB = checkReadingB();
+            const autoReadingTotal = readingA.score + readingB.score;
+
+            // Use manual scores if provided, otherwise use automatic/rubric
+            const listeningScore = manualListening !== '' ? parseFloat(manualListening) : autoListeningTotal;
+            const readingScore = manualReading !== '' ? parseFloat(manualReading) : autoReadingTotal;
+            const writingScore = manualWriting !== '' ? parseFloat(manualWriting) : rubricScore;
+
+            // Calculate total and grade
+            const totalScore = listeningScore + readingScore + writingScore;
+            const maxScore = 36; // 12 listening + 12 reading + 12 writing
+            const grade = calculateGrade(totalScore, maxScore);
+
+            // Display scores with indicators
+            const listeningDisplay = manualListening !== '' ? 
+                `${listeningScore} / 12 <span style="color: #ff9800; font-size: 0.9em;">(Manual)</span>` : 
+                `${listeningScore} / 12`;
+            
+            const readingDisplay = manualReading !== '' ? 
+                `${readingScore} / 12 <span style="color: #ff9800; font-size: 0.9em;">(Manual)</span>` : 
+                `${readingScore.toFixed(1)} / 12 <span style="color: #28a745; font-size: 0.85em;">(Auto: A+B)</span>`;
+            
+            const writingDisplay = manualWriting !== '' ? 
+                `${writingScore} / 12 <span style="color: #ff9800; font-size: 0.9em;">(Manual)</span>` : 
+                rubricScore > 0 ? `${writingScore} / 12 <span style="color: #4caf50; font-size: 0.85em;">(Rúbrica)</span>` : 
+                `Pendiente`;
+
+            document.getElementById('listeningScore').innerHTML = listeningDisplay;
+            document.getElementById('readingScore').innerHTML = readingDisplay;
+            document.getElementById('writingScore').innerHTML = writingDisplay;
+            document.getElementById('totalScore').textContent = totalScore.toFixed(1);
+            document.getElementById('finalGrade').textContent = grade.toFixed(1);
+
+            // Generate comprehensive feedback
+            let feedbackHTML = generateDetailedFeedback(listeningA, listeningB, readingA, readingB, {
+                listeningManual: manualListening !== '',
+                readingManual: manualReading !== '',
+                writingManual: manualWriting !== ''
+            });
+
+            document.getElementById('feedbackSection').innerHTML = feedbackHTML;
+            document.getElementById('resultsContainer').classList.add('show');
+            
+            // Scroll to results
+            document.getElementById('resultsContainer').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // ==================== DETAILED FEEDBACK GENERATOR ====================
+        function generateDetailedFeedback(listeningA, listeningB, readingA, readingB, manualFlags) {
+            manualFlags = manualFlags || {};
+            let html = '';
+
+            // LISTENING PART A - Detailed feedback
+            html += '<h3 style="color: #495057; margin-bottom: 15px; font-size: 1.3em;">🎧 LISTENING PART A - Fill in the blanks</h3>';
+            
+            if (manualFlags.listeningManual) {
+                html += `<div class="feedback-item" style="border-left-color: #ff9800; background: #fff3e0;">
+                    <strong>⚠️ Puntaje ajustado manualmente por el profesor</strong>
+                </div>`;
+            }
+            
+            const listeningAExplanations = {
+                1: {
+                    audio: 'El audio dice: "We are looking for an Operations <strong>Coordinator</strong> to join our team..."',
+                    explanation: 'Esta es la posición laboral que están buscando (Operations Coordinator).',
+                    variations: 'Variaciones aceptadas: coordinator, coordinador, coordenator, co-ordinator'
+                },
+                2: {
+                    audio: 'El audio dice: "...from Monday to <strong>Wednesday</strong>, from 8:00 AM to 6:00 PM..."',
+                    explanation: 'El horario de trabajo es de lunes a miércoles.',
+                    variations: 'Variaciones aceptadas: Wednesday, wednesday, wensday, wenesday'
+                },
+                3: {
+                    audio: 'El audio dice: "...and on Thursday, from <strong>9:00 AM</strong> to 3:00 PM."',
+                    explanation: 'El jueves el horario comienza a las 9 de la mañana.',
+                    variations: 'Variaciones aceptadas: 9, 9 AM, 9:00 AM, nine, nine am'
+                },
+                4: {
+                    audio: 'El audio dice: "The Operations Coordinator <strong>collaborates</strong> directly with the department manager..."',
+                    explanation: 'El verbo indica cómo trabaja el coordinador (colabora/trabaja en colaboración).',
+                    variations: 'Variaciones aceptadas: collaborates, colaborates, works'
+                },
+                5: {
+                    audio: 'El audio dice: "This person also works closely with <strong>suppliers</strong> to plan and organize..."',
+                    explanation: 'Trabaja cercanamente con proveedores (suppliers).',
+                    variations: 'Variaciones aceptadas: suppliers, supliers, supplyers, proveedores'
+                },
+                6: {
+                    audio: 'El audio dice: "...to participate in <strong>training</strong> sessions to learn new logistics software."',
+                    explanation: 'Sesiones de capacitación/entrenamiento (training sessions).',
+                    variations: 'Variaciones aceptadas: training, trainning, entrenamientos'
+                }
+            };
+
+            listeningA.feedback.forEach(item => {
+                const className = item.correct ? 'correct' : 'incorrect';
+                const icon = item.correct ? '✅' : '❌';
+                const explanation = listeningAExplanations[item.question];
+                
+                html += `
+                    <div class="feedback-item ${className}">
+                        <strong>${icon} Pregunta ${item.question}</strong>
+                        <p><strong>Tu respuesta:</strong> <span class="${item.correct ? 'correct-answer' : 'your-answer'}">${item.userAnswer}</span></p>
+                        ${!item.correct ? `<p><strong>Respuesta correcta:</strong> <span class="correct-answer">${item.correctAnswer}</span></p>` : ''}
+                        <p style="margin-top: 10px; color: #666; font-size: 0.95em;">
+                            <strong>📝 Explicación:</strong><br>
+                            ${explanation.audio}<br>
+                            ${explanation.explanation}<br>
+                            <em>${explanation.variations}</em>
+                        </p>
+                    </div>
+                `;
+            });
+
+            // LISTENING PART B - Detailed feedback
+            html += '<h3 style="color: #495057; margin: 30px 0 15px 0; font-size: 1.3em;">🎧 LISTENING PART B - True or False</h3>';
+            
+            const listeningBExplanations = {
+                1: {
+                    correct: 'T',
+                    audio: '"Monitoring inventory levels and updating the system"',
+                    explanation: 'El audio menciona claramente que el coordinador monitorea niveles de inventario. Esta es una de las tareas del puesto.'
+                },
+                2: {
+                    correct: 'F',
+                    audio: '"Attending meetings to discuss delivery schedules"',
+                    explanation: 'La afirmación dice que NO atiende reuniones ("doesn\'t attend"), pero el audio confirma que SÍ las atiende. Por lo tanto es FALSO.'
+                },
+                3: {
+                    correct: 'T',
+                    audio: '"Helping colleagues to prepare shipment documents"',
+                    explanation: 'El audio indica que ayuda a preparar documentos de envío. Esta tarea está incluida en las responsabilidades.'
+                },
+                4: {
+                    correct: 'T',
+                    audio: '"Contacting suppliers and confirming order details"',
+                    explanation: 'El audio menciona que contacta proveedores y confirma detalles de órdenes. El coordinador SÍ contacta proveedores.'
+                },
+                5: {
+                    correct: 'F',
+                    audio: '"Maria Lopez, our Human Resources Coordinator"',
+                    explanation: 'El audio dice que Maria Lopez es "HR Coordinator" (Coordinadora de RRHH), NO directora de la compañía ("company director").'
+                },
+                6: {
+                    correct: 'F',
+                    audio: '"basic computer skills"',
+                    explanation: 'El audio especifica "basic computer skills" (habilidades básicas), NO "advanced" (avanzadas). La afirmación es FALSA.'
+                }
+            };
+
+            listeningB.feedback.forEach(item => {
+                const className = item.correct ? 'correct' : 'incorrect';
+                const icon = item.correct ? '✅' : '❌';
+                const explanation = listeningBExplanations[item.question];
+                
+                html += `
+                    <div class="feedback-item ${className}">
+                        <strong>${icon} Pregunta ${item.question}</strong>
+                        <p><strong>Tu respuesta:</strong> <span class="${item.correct ? 'correct-answer' : 'your-answer'}">${item.userAnswer}</span></p>
+                        ${!item.correct ? `<p><strong>Respuesta correcta:</strong> <span class="correct-answer">${explanation.correct}</span></p>` : ''}
+                        <p style="margin-top: 10px; color: #666; font-size: 0.95em;">
+                            <strong>📝 Explicación:</strong><br>
+                            El audio dice: ${explanation.audio}<br>
+                            ${explanation.explanation}
+                        </p>
+                    </div>
+                `;
+            });
+
+            // READING PART A - Detailed feedback with partial credit
+            html += '<h3 style="color: #495057; margin: 30px 0 15px 0; font-size: 1.3em;">📖 READING PART A - Open-ended questions</h3>';
+            
+            if (manualFlags.readingManual) {
+                html += `<div class="feedback-item" style="border-left-color: #ff9800; background: #fff3e0;">
+                    <strong>⚠️ Puntaje ajustado manualmente por el profesor</strong>
+                </div>`;
+            }
+            
+            readingA.feedback.forEach(item => {
+                let className, icon, borderColor, bgColor;
+                
+                if (item.pointsEarned === item.maxPoints) {
+                    // Full credit
+                    className = 'correct';
+                    icon = '✅';
+                    borderColor = '#4caf50';
+                    bgColor = '#e8f5e9';
+                } else if (item.pointsEarned > 0) {
+                    // Partial credit
+                    className = 'partial';
+                    icon = '⚠️';
+                    borderColor = '#ff9800';
+                    bgColor = '#fff3e0';
+                } else {
+                    // No credit
+                    className = 'incorrect';
+                    icon = '❌';
+                    borderColor = '#f44336';
+                    bgColor = '#ffebee';
+                }
+                
+                html += `
+                    <div class="feedback-item" style="border-left-color: ${borderColor}; background: ${bgColor};">
+                        <strong>${icon} Pregunta ${item.question} - ${item.pointsEarned}/${item.maxPoints} punto(s)</strong>
+                        <p><strong>Tu respuesta:</strong> <span style="color: #424242;">${item.userAnswer}</span></p>
+                        ${item.pointsEarned < item.maxPoints ? `<p><strong>Respuesta esperada:</strong> <span class="correct-answer">${item.expectedStructure}</span></p>` : ''}
+                        <p style="margin-top: 10px; color: #666; font-size: 0.95em;">
+                            <strong>📝 Explicación:</strong><br>
+                            ${item.pointsEarned === item.maxPoints ? 
+                                '✅ Respuesta completa con información correcta.' : 
+                                item.partialCredit ? 
+                                    '⚠️ Crédito parcial: Incluyes palabras clave correctas pero falta estructura de oración completa. Para puntaje completo, escribe una oración completa con sujeto, verbo y complemento.' : 
+                                    '❌ Respuesta incompleta o incorrecta. Asegúrate de incluir la información solicitada en una oración completa.'}
+                        </p>
+                    </div>
+                `;
+            });
+
+            // READING PART B - Detailed feedback
+            html += '<h3 style="color: #495057; margin: 30px 0 15px 0; font-size: 1.3em;">📖 READING PART B - Multiple Choice</h3>';
+            
+            const readingBExplanations = {
+                1: {
+                    correct: 'B',
+                    text: 'Primer consejo',
+                    explanation: 'El artículo dice: "First, plan your transportation. Know how to get to your workplace." La respuesta correcta es planificar tu ruta.'
+                },
+                2: {
+                    correct: 'C',
+                    text: 'Segundo consejo',
+                    explanation: 'El artículo dice: "Second, dress appropriately. Ask about the dress code before your first day." Es importante vestirse apropiadamente.'
+                },
+                3: {
+                    correct: 'C',
+                    text: 'Tercer consejo',
+                    explanation: 'El texto dice: "You need your ID card and work contract." Los documentos necesarios son tarjeta de identidad y contrato.'
+                },
+                4: {
+                    correct: 'B',
+                    text: 'Cuarto consejo',
+                    explanation: 'El artículo dice: "Fourth, be friendly. Smile when you meet people. Introduce yourself to your new colleagues." Debes ser amigable y presentarte.'
+                },
+                5: {
+                    correct: 'C',
+                    text: 'Quinto consejo (Finally)',
+                    explanation: 'El texto dice: "Your manager gives you a lot of information. You cannot remember everything. Write it down." Tomas notas porque no puedes recordar todo.'
+                },
+                6: {
+                    correct: 'C',
+                    text: 'Mensaje principal',
+                    explanation: 'El artículo dice: "Your first day is an opportunity. Be on time, be polite, and be ready to learn." El mensaje es que la preparación ayuda a tener éxito.'
+                }
+            };
+
+            readingB.feedback.forEach(item => {
+                const className = item.correct ? 'correct' : 'incorrect';
+                const icon = item.correct ? '✅' : '❌';
+                const explanation = readingBExplanations[item.question];
+                
+                html += `
+                    <div class="feedback-item ${className}">
+                        <strong>${icon} Pregunta ${item.question}</strong>
+                        <p><strong>Tu respuesta:</strong> <span class="${item.correct ? 'correct-answer' : 'your-answer'}">${item.userAnswer}</span></p>
+                        ${!item.correct ? `<p><strong>Respuesta correcta:</strong> <span class="correct-answer">${explanation.correct}</span></p>` : ''}
+                        <p style="margin-top: 10px; color: #666; font-size: 0.95em;">
+                            <strong>📝 Explicación:</strong><br>
+                            <em>Ubicación:</em> ${explanation.text}<br>
+                            ${explanation.explanation}
+                        </p>
+                    </div>
+                `;
+            });
+
+            // WRITING - Note
+            html += '<h3 style="color: #495057; margin: 30px 0 15px 0; font-size: 1.3em;">✍️ WRITING - Presentation Letter</h3>';
+            html += `
+                <div class="feedback-item" style="border-left-color: #ff9800; background: #fff3e0;">
+                    <strong>📧 Envío por Email Requerido</strong>
+                    <p style="margin-top: 10px;">La sección de Writing debe ser enviada por email al profesor para evaluación con la rúbrica completa de 4 criterios:</p>
+                    <ul style="margin-left: 20px; margin-top: 8px;">
+                        <li><strong>Coherencia y Extensión (4 pts):</strong> Mínimo 40 palabras, desarrollar 5 ideas</li>
+                        <li><strong>Vocabulario (3 pts):</strong> Al menos 8 palabras del vocabulario del curso</li>
+                        <li><strong>Gramática (3 pts):</strong> Uso correcto de Present Simple, Present Continuous, love/like/hate + -ing</li>
+                        <li><strong>Ortografía (2 pts):</strong> Máximo 2 errores para puntaje completo</li>
+                    </ul>
+                    <p style="margin-top: 15px; padding: 10px; background: white; border-radius: 5px;">
+                        <strong>✅ Antes de enviar, verifica:</strong><br>
+                        • ¿Incluiste los 4 elementos? (Personal info, Abilities/Interests, Routine, What doing these days)<br>
+                        • ¿Usaste love/like/enjoy/hate + verbo-ing?<br>
+                        • ¿Tienes al menos 50-60 palabras?<br>
+                        • ¿Revisaste ortografía y gramática?
+                    </p>
+                    <p style="margin-top: 10px; text-align: center;">
+                        <strong>👆 Haz clic en el botón "Enviar Writing por Email" arriba para enviar tu carta.</strong>
+                    </p>
+                </div>
+            `;
+
+            return html;
+        }
+
+        // ==================== RUBRIC CALCULATOR ====================
+        function calculateRubricScore() {
+            let total = 0;
+            
+            // Get selected values for each criterion
+            const crit1 = document.querySelector('input[name="crit1"]:checked');
+            const crit2 = document.querySelector('input[name="crit2"]:checked');
+            const crit3 = document.querySelector('input[name="crit3"]:checked');
+            const crit4 = document.querySelector('input[name="crit4"]:checked');
+            
+            if (crit1) total += parseFloat(crit1.value);
+            if (crit2) total += parseFloat(crit2.value);
+            if (crit3) total += parseFloat(crit3.value);
+            if (crit4) total += parseFloat(crit4.value);
+            
+            // Update display
+            document.getElementById('rubricTotal').textContent = total;
+            
+            return total;
+        }
+
+        // Add event listeners to all rubric radio buttons
+        document.querySelectorAll('.rubric-criterion input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', calculateRubricScore);
+        });
+
+        // ==================== SEND WRITING EMAIL ====================
+        document.getElementById('sendWritingButton').addEventListener('click', function() {
+            // VALIDATION: Check student name
+            const studentName = document.getElementById('studentName').value.trim();
+            if (studentName === '') {
+                alert('⚠️ Por favor ingresa tu nombre completo antes de enviar el Writing.');
+                
+                // Scroll to student name field and focus
+                document.getElementById('studentName').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                document.getElementById('studentName').focus();
+                return;
+            }
+
+            // Check word count (warning only, not blocking)
+            const writingText = document.getElementById('writingText').value.trim();
+            const words = writingText.split(/\s+/).filter(word => word.length > 0);
+            const wordCount = words.length;
+
+            if (wordCount < 40) {
+                const confirmSend = confirm(`⚠️ Tu respuesta tiene ${wordCount} palabras. El mínimo recomendado es 40 palabras.\n\n¿Deseas enviar el texto de todas formas?`);
+                if (!confirmSend) {
+                    return;
+                }
+            }
+
+            const subject = `INI1131 MOCK TEST - Writing Section - ${studentName}`;
+            const body = `MOCK TEST WRITING SUBMISSION
+============================
+
+Student Information:
+- Name: ${studentName}
+- Date: ${new Date().toLocaleString('es-CL')}
+- Word Count: ${wordCount} words
+
+WRITING RESPONSE:
+-----------------
+
+${writingText}
+
+============================
+This is an automatic submission from the INI1131 COMEX Mock Test.
+`;
+
+            const teacherEmail = 'v.moralesm@profesor.duoc.cl';
+            const mailtoLink = `mailto:${teacherEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            window.location.href = mailtoLink;
+            
+            alert('✅ Tu respuesta de Writing se ha preparado para enviar. Se abrirá tu cliente de email.');
+        });
+    </script>
+</body>
+</html>
